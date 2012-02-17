@@ -62,6 +62,7 @@
 				<a href="#candidate1">See Candidate 1: Jessica Rabbit</a><br/>
                 <a href="#candidate2">See Candidate 2: Porky Pig</a><br/>
                 <a href="#candidate3">See Candidate 3: Marvin the Martian</a>
+				<a href="#candidate1">See Candidate 1</a>
 			</form>
 		</div>
 		
@@ -155,7 +156,17 @@
 		</div>	
 		
 	</div>
-    
+			<h1>Candidate 1</h1>
+		</div>
+		
+		<div data-role="content">
+			<div class="imgContainer"></div>
+			<p>This candidate's platform statement goes here.</p>
+			<!--<button>Vote for Candidate 1</button>-->
+			<a href="#results" data-role="button">Vote for Candidate 1</a>
+		</div>
+		
+	</div>
 	<div data-role="page" id="results">
 		
 		<div data-role="header">
@@ -172,6 +183,13 @@
 				</tr>
 				<tr>
 					<td>Marvin the Martian:</td><td>33%</td>
+					<td>Candidate 1:</td><td>33%</td>
+				</tr>
+				<tr>
+					<td>Candidate 2:</td><td>33%</td>
+				</tr>
+				<tr>
+					<td>Candidate 3:</td><td>33%</td>
 				</tr>
 			</table>
 		</div>
@@ -202,6 +220,10 @@
                 <input type = "submit" name = "clear" value = "Clear All Votes"/>
              </form>
 		</div>	
+	</div>
+			
+		</div>
+		
 	</div>
 </body>
 </html>
