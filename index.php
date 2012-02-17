@@ -31,14 +31,18 @@
 	<script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
 	<style>
 	.imgContainer {
-		width:300px;
-		height:400px;
+		width:230px;
+		height:230px;
 		background:black;
 		text-align:center;
+		border:2px solid #666;
 	}
 	.imgContainer img { 
-		width:250px;
-		height:250px;
+		max-width:100%;
+	 }
+	 th
+	 {
+		 border-bottom: 1px solid #000;
 	 }
 	</style>
 </head>
@@ -55,7 +59,9 @@
 			<form method="POST" action="index.php">
 				<p><label>Voter ID Number: <input name="voterid" type="number" min="1001" max="1049" required></label></p>
 				<p><button type="submit" name="submit">Log In</button></p>
-				<a href="#candidate1">See Candidate 1</a>
+				<a href="#candidate1">See Candidate 1: Jessica Rabbit</a><br/>
+                <a href="#candidate2">See Candidate 2: Porky Pig</a><br/>
+                <a href="#candidate3">See Candidate 3: Marvin the Martian</a>
 			</form>
 		</div>
 		
@@ -68,7 +74,7 @@
 		</div>
 		
 		<div data-role="content">
-			<div class="imgContainer"></div>
+			<div class="imgContainer"><img src = "img/jessica.png" alt = "jessica"/></div>
             <ul class = "stats">
             	<h3>Stats:</h3>
             	<li>Age: Undisclosed.</li>
@@ -76,47 +82,77 @@
                 <li>Height: 6'</li>
             </ul>
 			<p> Jessica Rabbit has years and years of experience with swaying public opinion. Her realization of her own charismatic power led her to run for mayor. She was also just tired of singing at clubs for a living.</p>
-             <ul class = "stances">
-             	<h3>Tax funds will be redirected to "Cosmetic Welfare" for low-income, ugly people.</h3>
+             <ul class = "platform">
+             	<h3>Platforms:</h3>
+                <li>Tax funds will be redirected to "Cosmetic Welfare" for low-income, ugly people.</li>
             	<li>Socialized dressmaking</li>
                 <li>Town-wide happy-hour from 12pm to 2am. Half-off drinks. Enforced daily.</li>
                 <li>Founder of ASFA – "The Anti-Discrimination of Small Feet Alliance"</li>
             </ul>
-			<p>Quote: "When you look this good, who wouldn't vote for you?"<p>
+            <h3>Quote:</h3>
+			<p>"When you look <em>this</em> good, who wouldn't vote for you?"<p>
 			<!--<button>Vote for Candidate 1</button>-->
 			<a href="#results" data-role="button">Vote for Jessica Rabbit</a>
-		</div>
-		
+		</div>		
 	</div>
     
     <div data-role="page" id="candidate2">
 		
 		<div data-role="header">
-			<h1>Candidate 2</h1>
+			<h1>Porky Pig</h1>
 		</div>
 		
 		<div data-role="content">
-			<div class="imgContainer"></div>
-			<p>This candidate's platform statement goes here.</p>
+			<div class="imgContainer"><img src = "img/porky.png" alt = "porky"/></div>
+            <ul class = "stats">
+            	<h3>Stats:</h3>
+            	<li>Age: 35</li>
+                <li>Gender: Male</li>
+                <li>Height: 3'4"</li>
+            </ul>
+			<p> Porky Pig is renown for his strong sense of kindness, organization, and panicked stuttering. After making immense progress on his weight-loss regimen, his newfound confidence drove him to pursue the title of Toontown Mayor. </p>
+             <ul class = "platform">
+             	<h3>Platforms:</h3>
+                <li>Illegalization and penalization of the consumption of pork</li>
+            	<li>Tax funds allocated to hair-loss preventative research and treatment</li>
+                <li>Plans to build a 24/7 community gym</li>
+                <li>We would know more, but he can't quite get through a single speech.</li>
+            </ul>
+            <h3>Quote:</h3>
+			<p>"D-d-ditch the h-ham and avoid a scam! V-v-v-choose me for Toontown Mayor!"<p>
 			<!--<button>Vote for Candidate 1</button>-->
-			<a href="#results" data-role="button">Vote for Candidate 1</a>
-		</div>
-		
+			<a href="#results" data-role="button">Vote for Porky Pig</a>
+		</div>		
 	</div>
 	
      
     <div data-role="page" id="candidate3">
 		
 		<div data-role="header">
-			<h1>Candidate 3</h1>
+			<h1>Marvin the Martian</h1>
 		</div>
 		
-		<div data-role="content">
-			<div class="imgContainer"></div>
-			<p>This candidate's platform statement goes here.</p>
+				<div data-role="content">
+			<div class="imgContainer"><img src = "img/marvin.png" alt = "marvin"/></div>
+            <ul class = "stats">
+            	<h3>Stats:</h3>
+            	<li>Age: 2,000</li>
+                <li>Gender: Male</li>
+                <li>Height: 2'5"</li>
+            </ul>
+			<p>After failing to destroy Earth in 1957, Marvin Martian decided that the only way to rule over the puny earthlings would to be to corrupt the system from the inside, but that's actually not true at all. He is determined to bring rainbows and butterfly sparkles to humankind…in the form of uranium-based explosives.</p>
+             <ul class = "platform">
+             	<h3>Platforms:</h3>
+                <li>Tax funds delegated to himself</li>
+            	<li>Socialized human slavery</li>
+                <li>Government aid to those swearing allegiance to Mars</li>
+                <li>Likes dogs</li>
+            </ul>
+            <h3>Quote:</h3>
+			<p>"Vote for me, earthlings. You have no choice!"<p>
 			<!--<button>Vote for Candidate 1</button>-->
-			<a href="#results" data-role="button">Vote for Candidate 1</a>
-		</div>
+			<a href="#results" data-role="button">Vote for Marvin the Martian</a>
+		</div>	
 		
 	</div>
     
@@ -129,13 +165,13 @@
 		<div data-role="content">
 			<table>
 				<tr>
-					<td>Candidate 1:</td><td>33%</td>
+					<td>Jessica Rabbit:</td><td>33%</td>
 				</tr>
 				<tr>
-					<td>Candidate 2:</td><td>33%</td>
+					<td>Porky Pig:</td><td>33%</td>
 				</tr>
 				<tr>
-					<td>Candidate 3:</td><td>33%</td>
+					<td>Marvin the Martian:</td><td>33%</td>
 				</tr>
 			</table>
 		</div>
@@ -149,10 +185,23 @@
 		</div>
 		
 		<div data-role="content">
-			
-		</div>
-		
+            <form name = "user_votes">
+                <table cellpadding = "5">
+                    <tr>
+                        <th>Voter ID</th>
+                        <th>Has Voted</th>
+                   </tr>
+               <!-- dynamically w/PHP populate the rest of the table with the user's info -->
+                   <tr>
+                        <td>ExampleID</td>
+                        <td>
+                            <input type = "checkbox" class ="voter_checks" name ="exampleid">
+                        </td>
+                   </tr>
+                </table>
+                <input type = "submit" name = "clear" value = "Clear All Votes"/>
+             </form>
+		</div>	
 	</div>
-
 </body>
 </html>
