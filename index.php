@@ -82,7 +82,6 @@ include('db_connect.php');
 					if($mysqli->error) print "Query failed: ".$mysqli->error;
 				}
 			}
-			
 			$query = 'update 4104_elections set vote_status = 0, candidate = 0 where user_id in ('.$comma_separated.')';
 			$result = $mysqli->query($query);
 			if($mysqli->error) print "Query failed: ".$mysqli->error;
@@ -213,6 +212,7 @@ include('db_connect.php');
 				else echo "<p>You have already voted.</p>";
 				echo "<p><a href=\"index.php#results\">View results.</a></p>";
                 ?>
+
 			</form>
 			
 			<form method="POST" action="index.php" data-ajax="false">
@@ -308,6 +308,7 @@ include('db_connect.php');
 			<h1>Marvin the Martian</h1>
 		</div>
 		<div data-role="content" data-theme='a'>
+
 			<div class="imgContainer"><img src = "img/marvin.png" alt = "marvin"/></div>
             <ul class = "stats">
             	<h3>Stats:</h3>
@@ -441,9 +442,7 @@ include('db_connect.php');
              ?>
 		</div>	
 	</div>
-	
-		</div>
-		
+		</div>	
 	</div>
 </body>
 </html>
