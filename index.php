@@ -67,11 +67,17 @@ include('db_connect.php');
     	}
     	else {
 			if(is_array($_POST['vote_clear'])){
+			foreach($_POST['vote_clear'] as $test){
+			echo $test;
+			}
 			$comma_separated = implode(",", $_POST['vote_clear']);
 			}
 			else $comma_separated = $_POST['vote_clear'];
+			echo $_POST['vote_clear'];
+			echo $comma_separated;
 			
 			$query ='SELECT user_id, vote_status, 4104_candidates.id from 4104_elections inner join 4104_candidates on 4104_elections.candidate=4104_candidates.id where user_id in ('.$comma_separated.')';
+			echo $query;
 			$result = $mysqli->query($query);
 			if($mysqli->error) print "Query failed: ".$mysqli->error;
 		
@@ -82,7 +88,6 @@ include('db_connect.php');
 					if($mysqli->error) print "Query failed: ".$mysqli->error;
 				}
 			}
-			
 			$query = 'update 4104_elections set vote_status = 0, candidate = 0 where user_id in ('.$comma_separated.')';
 			$result = $mysqli->query($query);
 			if($mysqli->error) print "Query failed: ".$mysqli->error;
@@ -96,26 +101,59 @@ include('db_connect.php');
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Toontown Voting System</title>
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
-	<!--
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile.structure-1.0.1.min.css" />
-	-->
-	<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+    <link rel="stylesheet" href="css/themes/toontown_theme.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile.structure-1.0.1.min.css" /> 
+<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script> 
+  <script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
 	<style>
+	@font-face { font-family: Toontown; src: url('fonts/toonti.ttf'); } 
 	.imgContainer {
 		width:230px;
 		height:230px;
-		background:black;
 		text-align:center;
 		border:2px solid #666;
 	}
 	.imgContainer img { 
 		max-width:100%;
+		max-height:100%;
+		 margin-left:auto;
+		 margin-right:auto;
+	 }
+	 .logoContainer
+	 {
+		 width:230ems;
+		height:230ems;
+		text-align:center;
+	 }
+	 .logoContainer img { 
+		max-width:100%;
+		max-height:100%;
+		 margin-left:auto;
+		 margin-right:auto;
 	 }
 	 th
 	 {
 		 border-bottom: 1px solid #000;
+	 }
+	  h3, h2
+	 {
+		 font-family: Toontown;
+		 color:#F00;
+		 font-size: 28px;
+		 text-shadow: 2px 2px 2px #000;
+		 
+	 }
+	 h1, tr:first-Child, td:first-Child
+	 {
+		 font-family: Toontown;
+	 }
+	 tr:first-Child
+	 {
+		 color:#F00;
+	 }
+	 body
+	 {
+		 background-color: #f7ea8d;
 	 }
 	</style>
 </head>
@@ -125,43 +163,47 @@ include('db_connect.php');
 		<div data-role="header">
 			<h1>Login Page</h1>
 		</div>
-		<div data-role="content">
+		<div data-role="content" data-theme = 'a'>
+        <div class = 'logoContainer'><img src = "img/logo.png" alt = "logo"/></div>
 		<? if($invalid==1){
-			echo "<h3>That was an invalid voting id.</h3>";
+			echo "<p>Sorry. That was an invalid voting id. Please try again.</p>";
 			}
 			?>
-			<p>Please log in to continue:</p>
+			<p>Please log in to vote:</p>
 			<form method="POST" action="index.php" data-ajax="false">
 				<p><label>Voter ID Number: <input name="voterid" type="number" min="1001" max="1049" required></label></p>
 				<p><button type="submit" name="login_submit">Log In</button></p>
 			</form>
-			<h3>The Candidates</h3>
-				<a href="#candidate1">See Candidate 1: Jessica Rabbit</a><br/>
-                <a href="#candidate2">See Candidate 2: Porky Pig</a><br/>
-                <a href="#candidate3">See Candidate 3: Marvin the Martian</a>
-			<p><a href="index.php#results">View results.</a></p>
+			<a href="index.php#results"><button>View results</button></a>
 		</div>
 	</div>
 	
-	<div data-role="page" id="voting">
+	<div data-role="page" id="voting" >
 		<div data-role="header">
-			<h1>Vote for Mayor</h1>
+			<h1>Voter Home Page</h1>
 		</div>
-		<div data-role="content">
+		<div data-role="content" data-theme='a'>
+         <div class = 'logoContainer'><img src = "img/logo.png" alt = "logo"/></div>
 				<? if($_SESSION['user_id']){
 				?>
-				<h2>The Candidates</h2>
-				<a href="#candidate1">See Candidate 1: Jessica Rabbit</a><br/>
-                <a href="#candidate2">See Candidate 2: Porky Pig</a><br/>
-                <a href="#candidate3">See Candidate 3: Marvin the Martian</a>
-                
+				<h2>View Candidates</h2>
+				<ul data-role="listview">
+					<li><a href="#candidate1"><img src = "img/jessica.png" alt = "jessica"/>
+						See Candidate 1:<br/> Jessica Rabbit</a>
+					</li>
+					<li><a href="#candidate2"><img src = "img/porky.png" alt = "porky"/>
+						See Candidate 2:<br/> Porky Pig</a>
+					</li>
+					<li><a href="#candidate3"><img src = "img/marvin.png" alt = "marvin" />
+					See Candidate 3:<br/> Marvin the Martian</a>
+					</li>
+                </ul>
                 <?
 					if($_SESSION['vote_status'] == 0){
 				?>
-				<h2>Voting</h2>
+				<h2>Cast Your Vote</h2>
 				<form method="POST" action="index.php#results" data-ajax="false">
 					<fieldset data-role="controlgroup">
-						<legend>Vote for a candidate:</legend>
 						<input type="radio" name="candidate" id="radio-choice-1" value="1" checked="checked" />
 						<label for="radio-choice-1">Jessica Rabbit</label>
 				
@@ -171,13 +213,19 @@ include('db_connect.php');
 						<input type="radio" name="candidate" id="radio-choice-3" value="3"  />
 						<label for="radio-choice-3">Marvin the Martin</label></p>
 					</fieldset>
-					<button type="submit" name="voter_submit">Vote</button>
+						
+						<li class="ui-body ui-body-b">
+							<fieldset class="ui-grid-a">
+									<div class="ui-block-a"><button type="submit" name="voter_submit">Vote</button></div>
+									<div class="ui-block-b"><button data-theme="a">Results</button></div>
+							</fieldset>
+						</li>
 				</form>
 				<?
 				}
-				else echo "<p>You have already voted.</p>";
-				echo "<p><a href=\"index.php#results\">View results.</a></p>";
+				else echo "<br /><p>You have already voted. <a href=\"index.php#results\">View results.</a></p>";
                 ?>
+
 			</form>
 			
 			<form method="POST" action="index.php" data-ajax="false">
@@ -193,7 +241,7 @@ include('db_connect.php');
 		<div data-role="header">
 			<h1>Jessica Rabbit</h1>
 		</div>
-		<div data-role="content">
+		<div data-role="content" data-theme='a'>
 			<div class="imgContainer"><img src = "img/jessica.png" alt = "jessica"/></div>
             <ul class = "stats">
             	<h3>Stats:</h3>
@@ -221,7 +269,6 @@ include('db_connect.php');
 				</form>
 			<?
 				}
-				echo "<a href=\"index.php#voting\">Back to voting (and candidates?) page</a>";
 			}
 			else echo "<a href=\"index.php\">Log In</a>";
 			?>
@@ -232,7 +279,7 @@ include('db_connect.php');
 		<div data-role="header">
 			<h1>Porky Pig</h1>
 		</div>
-		<div data-role="content">
+		<div data-role="content" data-theme='a'>
 			<div class="imgContainer"><img src = "img/porky.png" alt = "porky"/></div>
             <ul class = "stats">
             	<h3>Stats:</h3>
@@ -260,7 +307,6 @@ include('db_connect.php');
 				</form>
 			<?
 				}
-				echo "<a href=\"index.php#voting\">Back to voting (and candidates?) page</a>";
 			}
 			else echo "<a href=\"index.php\">Log In</a>";
 			?>
@@ -272,7 +318,8 @@ include('db_connect.php');
 		<div data-role="header">
 			<h1>Marvin the Martian</h1>
 		</div>
-		<div data-role="content">
+		<div data-role="content" data-theme='a'>
+
 			<div class="imgContainer"><img src = "img/marvin.png" alt = "marvin"/></div>
             <ul class = "stats">
             	<h3>Stats:</h3>
@@ -300,7 +347,6 @@ include('db_connect.php');
 				</form>
 			<?
 				}
-				echo "<a href=\"index.php#voting\">Back to voting (and candidates?) page</a>";
 			}
 			else echo "<a href=\"index.php\">Log In</a>";
 			?>
@@ -311,8 +357,9 @@ include('db_connect.php');
 		<div data-role="header">
 			<h1>Voting Results</h1>
 		</div>
-		<div data-role="content">
-			<table>
+		<div data-role="content" data-theme='a'>
+                <div class = 'logoContainer'><img src = "img/logo.png" alt = "logo"/></div>
+			<table cellpading = "10" cellspacing="10">
 			<tr><th>Candidate Name</th>
 			<th>Number of Votes</th>
 			<th>Percentage of Votes</th>
@@ -342,12 +389,28 @@ include('db_connect.php');
 			?>
 			</table>
 			
+			<table cellpadding = "10" cellspacing = "10">
+			<tr>
+				<th>Total Voted<br />(# - %)</th>
+				<th>Total Not Voted<br />(# - %)</th>
+			</tr>
+			<tr>
+				<td><? echo $totalvotes." - ";
+					echo round($totalvotes/49*100,1).'%';
+				?></td>
+				<td><?
+					$notvoted = 49 - $totalvotes;
+					echo $notvoted." - ";
+					echo round($notvoted/49*100,1).'%';
+				?></td>
+			</tr>
+			</table>
+			
 			<p>
 			<?
-			if($_SESSION['user_id']){
-				echo "<a href=\"index.php#voting\">Back to voting (and candidates?) page</a>";
+			if(!$_SESSION['user_id']){
+				echo "<a href=\"index.php\"><button>Log In to Vote</button></a>";
 			}
-			else echo "<a href=\"index.php\">Log In</a>";
 			?>
 			</p>
 		</div>
@@ -357,36 +420,42 @@ include('db_connect.php');
 		<div data-role="header">
 			<h1>Manager Page</h1>
 		</div>
-		<div data-role="content">
+		<div data-role="content" data-theme='a'>
 			<? if($_SESSION['admin']){
-			$query = 'select * from 4104_elections';
+			$query = 'select * from 4104_elections left join 4104_candidates on 4104_candidates.id = candidate';
 			$result = $mysqli->query($query);
 			if($mysqli->error) {
 				 print "Query failed: ".$mysqli->error;
 			}
 			?>
             <form method="POST" action="index.php#manager" data-ajax="false">
-                <table cellpadding = "5">
-                    <tr>
-                        <th>Voter ID</th>
-                        <th>Has Voted</th>
-                        <th>Voted For</th>
-                   </tr>
-               <!-- dynamically w/PHP populate the rest of the table with the user's info -->
+            	<input type="submit" name="clear" value="Clear All Votes"/>
+            	<div data-role="fieldcontain">
+    			<fieldset data-role="controlgroup">
+    			<legend>Clear Individual Votes:</legend>
                <?
                while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
-				echo "<tr><td>".$row['user_id']."</td>";
+               if(empty($row['name'])){
+               $row['name'] = 'no one';
+               }
+               echo "<input type=\"checkbox\" name=\"vote_clear[]\" id=\"checkbox-".$row['user_id']."\" class=\"voter_checks\" value=\"".$row['user_id']."\" ";
+               if($row['vote_status'] == 1){
+					echo "checked=\"true\"";
+					}
+				echo " />";
+               echo "<label for=\"checkbox-".$row['user_id']."\">".$row['user_id']." - Voted for ".$row['name']."</label>";
+				/*echo "<tr><td>".$row['user_id']."</td>";
 				echo "<td><input type=\"checkbox\" class=\"voter_checks\" name=\"vote_clear[]\" value=\"".$row['user_id']."\" ";
 				if($row['vote_status'] == 1){
 					echo "checked=\"true\"";
 					}
 				echo " /></td>";
-				echo "<td>".$row['candidate']."</td></tr>";
+				echo "<td>".$row['candidate']."</td></tr>";*/
 				}
 				?>
-                </table>
+                </fieldset>
+</div>
                 <input type="submit" name="clear" value="Clear Selected Votes"/>
-                <input type="submit" name="clear" value="Clear All Votes"/>
              </form>
              
             <form method="POST" action="index.php#manager" data-ajax="false">
@@ -405,9 +474,7 @@ include('db_connect.php');
              ?>
 		</div>	
 	</div>
-	
-		</div>
-		
+		</div>	
 	</div>
 </body>
 </html>
