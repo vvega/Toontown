@@ -188,6 +188,7 @@ include('db_connect.php');
 				<a href="#candidate1">See Candidate 1: Jessica Rabbit</a><br/>
                 <a href="#candidate2">See Candidate 2: Porky Pig</a><br/>
                 <a href="#candidate3">See Candidate 3: Marvin the Martian</a>
+
                 
                 <?
 					if($_SESSION['vote_status'] == 0){
@@ -308,7 +309,6 @@ include('db_connect.php');
 			<h1>Marvin the Martian</h1>
 		</div>
 		<div data-role="content" data-theme='a'>
-
 			<div class="imgContainer"><img src = "img/marvin.png" alt = "marvin"/></div>
             <ul class = "stats">
             	<h3>Stats:</h3>
