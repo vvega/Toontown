@@ -68,16 +68,12 @@ include('db_connect.php');
     	else {
 			if(is_array($_POST['vote_clear'])){
 			foreach($_POST['vote_clear'] as $test){
-			echo $test;
 			}
 			$comma_separated = implode(",", $_POST['vote_clear']);
 			}
 			else $comma_separated = $_POST['vote_clear'];
-			echo $_POST['vote_clear'];
-			echo $comma_separated;
 			
 			$query ='SELECT user_id, vote_status, 4104_candidates.id from 4104_elections inner join 4104_candidates on 4104_elections.candidate=4104_candidates.id where user_id in ('.$comma_separated.')';
-			echo $query;
 			$result = $mysqli->query($query);
 			if($mysqli->error) print "Query failed: ".$mysqli->error;
 		
@@ -154,10 +150,6 @@ include('db_connect.php');
 	 body
 	 {
 		 background-color: #f7ea8d;
-	 }
-	 a
-	 {
-		 text-decoration:none;
 	 }
 	</style>
 </head>
@@ -323,6 +315,7 @@ include('db_connect.php');
 			<h1>Marvin the Martian</h1>
 		</div>
 		<div data-role="content" data-theme='a'>
+
 			<div class="imgContainer"><img src = "img/marvin.png" alt = "marvin"/></div>
             <ul class = "stats">
             	<h3>Stats:</h3>
@@ -425,14 +418,14 @@ include('db_connect.php');
 		</div>
 		<div data-role="content" data-theme='a'>
 			<? if($_SESSION['admin']){
-			$query = 'select * from 4104_elections left join 4104_candidates on 4104_candidates.id = candidate';
+			$query = 'select * from 4104_elections left join 4104_candidates on 4104_candidates.id = candidate order by vote_status desc, user_id asc';
 			$result = $mysqli->query($query);
 			if($mysqli->error) {
 				 print "Query failed: ".$mysqli->error;
 			}
 			?>
             <form method="POST" action="index.php#manager" data-ajax="false">
-            	<input type="submit" name="clear" value="Clear All Votes"/>
+            	<input type="submit" name="clear" value="Clear All Votes" onclick="return confirm('Are you sure you want to make these changes ?');"/>
             	<div data-role="fieldcontain">
     			<fieldset data-role="controlgroup">
     			<legend>Clear Individual Votes:</legend>
@@ -441,24 +434,13 @@ include('db_connect.php');
                if(empty($row['name'])){
                $row['name'] = 'no one';
                }
-               echo "<input type=\"checkbox\" name=\"vote_clear[]\" id=\"checkbox-".$row['user_id']."\" class=\"voter_checks\" value=\"".$row['user_id']."\" ";
-               if($row['vote_status'] == 1){
-					echo "checked=\"true\"";
-					}
-				echo " />";
+               echo "<input type=\"checkbox\" name=\"vote_clear[]\" id=\"checkbox-".$row['user_id']."\" class=\"voter_checks\" value=\"".$row['user_id']."\" />";
                echo "<label for=\"checkbox-".$row['user_id']."\">".$row['user_id']." - Voted for ".$row['name']."</label>";
-				/*echo "<tr><td>".$row['user_id']."</td>";
-				echo "<td><input type=\"checkbox\" class=\"voter_checks\" name=\"vote_clear[]\" value=\"".$row['user_id']."\" ";
-				if($row['vote_status'] == 1){
-					echo "checked=\"true\"";
-					}
-				echo " /></td>";
-				echo "<td>".$row['candidate']."</td></tr>";*/
 				}
 				?>
                 </fieldset>
 </div>
-                <input type="submit" name="clear" value="Clear Selected Votes"/>
+                <input type="submit" name="clear" value="Clear Selected Votes" onclick="return confirm('Are you sure you want to make these changes ?');"/>
              </form>
              
             <form method="POST" action="index.php#manager" data-ajax="false">
